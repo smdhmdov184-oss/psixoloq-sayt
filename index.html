@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<title>Psixoloq Aytac Ələkbərova | Online Terapiya</title>
+<meta name="description" content="Psixoloq Aytac Ələkbərova - online terapiya və psixoloji dəstək xidmətləri">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body{
+  font-family:Poppins,sans-serif;
+  background:#f6f1ea;
+  color:#222;
+  line-height:1.6;
+}
+.sr-only{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 8%;
+  background:#111;
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+nav .logo{
+  font-size:20px;
+  font-weight:700;
+}
+nav .menu{
+  opacity:.8;
+  font-size:14px;
+}
+.hero{
+  min-height:80vh;
+  display:flex;
+  align-items:center;
+  padding:80px 8%;
+  color:white;
+  background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
+    url("./images/hero.jpg");
+  background-size:cover;
+  background-position:center;
+}
+.hero-content{
+  max-width:700px;
+}
+.hero h1{
+  font-size:52px;
+  line-height:1.2;
+  margin-bottom:20px;
+}
+.hero p{
+  font-size:18px;
+  opacity:.9;
+  margin-bottom:30px;
+}
+.hero button{
+  width:auto;
+  padding:14px 28px;
+  font-size:16px;
+}
+.container{
+  padding:60px 8%;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+.card{
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  margin-bottom:20px;
+  box-shadow:0 5px 25px rgba(0,0,0,.06);
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-4px);
+}
+.card h2,
+.card h3{
+  margin-bottom:15px;
+}
+.profile{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid #eee;
+  margin:15px 0;
+}
+.tag{
+  display:inline-block;
+  padding:10px 14px;
+  background:#f1ece6;
+  color:#333;
+  border-radius:30px;
+  margin:6px;
+  font-size:13px;
+  transition:.3s;
+}
+.tag:hover{
+  background:#111;
+  color:white;
+  transform:translateY(-2px);
+}
+input,
+select,
+textarea,
+button{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border-radius:12px;
+  border:1px solid #ddd;
+  font-family:Poppins;
+  font-size:15px;
+}
+textarea{
+  min-height:120px;
+  resize:none;
+}
+input:focus,
+select:focus,
+textarea:focus{
+  outline:none;
+  border-color:#111;
+}
+button{
+  background:#111;
+  color:white;
+  border:none;
+  cursor:pointer;
+  transition:.3s;
+  font-weight:600;
+}
+button:hover{
+  background:#333;
+  transform:translateY(-2px);
+}
+.service-img{
+  width:100%;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+#msg{
+  margin-top:10px;
+  font-weight:600;
+}
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  color:white;
+  padding:14px 20px;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:600;
+  box-shadow:0 5px 20px rgba(0,0,0,.2);
+  transition:.3s;
+}
+.whatsapp:hover{
+  transform:scale(1.05);
+}
+footer{
+  background:#111;
+  color:white;
+  text-align:center;
+  padding:25px;
+  margin-top:40px;
+}
+footer p{
+  opacity:.7;
+  font-size:14px;
+}
+@media(max-width:900px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+  .hero h1{
+    font-size:38px;
+  }
+  .hero{
+    min-height:70vh;
+  }
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Psixoloq Aytac Ələkbərova</div>
+  <div class="menu">Online Terapiya</div>
+</nav>
+<section class="hero">
+  <div class="hero-content">
+    <h1>Psixoloji Dəstək &amp; Online Terapiya</h1>
+    <p>Daxili balansınızı bərpa etmək və emosional rifahınızı gücləndirmək üçün professional psixoloji dəstək.</p>
+    <button type="button" onclick="scrollToBooking()">Randevu götür</button>
+  </div>
+</section>
+<div class="container">
+  <div class="card">
+    <h2>👩‍⚕️ Haqqımda</h2>
+    <img class="profile" loading="lazy" src="./images/aytac.jpg" alt="Psixoloq Aytac Ələkbərova">
+    <p>Mən Aytac Ələkbərova, psixoloq və psixoterapevtəm. Emosional rifah, şəxsi inkişaf və psixoloji sağlamlıq sahəsində professional dəstək göstərirəm.</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>📞 Əlaqə</h3>
+      <p>📱 +994 50 615 03 54</p>
+      <p>✉️ aytaclkbrova84@gmail.com</p>
+    </div>
+    <div class="card">
+      <h3>🎓 Təhsil</h3>
+      <p>Bakı Dövlət Universiteti<br>(Bakalavr və Magistr)</p>
+      <br>
+      <p>B.D. Karvasarski adına Psixoterapiya və Tibbi Psixologiya İnstitutu<br>(Əlavə təhsil)</p>
+    </div>
+  </div>
+  <div class="card">
+    <h2>🧠 Hansı mövzularla işləyirəm?</h2>
+    <span class="tag">Təşviş Pozuntuları</span>
+    <span class="tag">Anksiyete</span>
+    <span class="tag">OKP</span>
+    <span class="tag">Depressiv hallar</span>
+    <span class="tag">Özgüvən problemləri</span>
+    <span class="tag">Münasibət problemləri</span>
+    <span class="tag">Emosional bağlılıq</span>
+    <span class="tag">Stress</span>
+    <span class="tag">Panik atak</span>
+    <span class="tag">Həddindən artıq düşünmə</span>
+    <span class="tag">Sosial narahatlıq</span>
+    <span class="tag">Duyğu idarəetməsi</span>
+    <span class="tag">Travmatik təcrübələr</span>
+    <span class="tag">Motivasiya problemləri</span>
+    <span class="tag">Həyat balansı</span>
+    <span class="tag">Yeniyetməlik çətinlikləri</span>
+    <span class="tag">Şəxsi inkişaf</span>
+    <span class="tag">Burnout</span>
+    <span class="tag">Ailə konfliktləri</span>
+    <span class="tag">Ayrılıq sonrası çətinliklər</span>
+  </div>
+  <div class="card">
+    <h2>📸 Terapiya Sahələri</h2>
+    <div class="grid">
+      <div class="card">
+        <img class="service-img" loading="lazy" src="https://images.unsplash.com/photo-1516307365426-bea591f05011?auto=format&fit=crop&w=800&q=80" alt="Stress və anksiyete dəstəyi">
+        <h4>Stress &amp; Anksiyete</h4>
+      </div>
+      <div class="card">
+        <img class="service-img" loading="lazy" src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=800&q=80" alt="Terapiya sessiyası atmosfere">
+        <h4>Terapiya Sessiyaları</h4>
+      </div>
+    </div>
+  </div>
+  <div class="card" id="booking">
+    <h2>📅 Randevu Sistemi</h2>
+    <form id="bookingForm" onsubmit="book(event)">
+      <label class="sr-only" for="name">Ad Soyad</label>
+      <input id="name" name="name" type="text" placeholder="Ad Soyad" required>
+      <label class="sr-only" for="phone">Telefon</label>
+      <input id="phone" name="phone" type="tel" placeholder="Telefon" pattern="[0-9\\s()+-]{9,}" required>
+      <label class="sr-only" for="date">Tarix</label>
+      <input id="date" name="date" type="date" required>
+      <label class="sr-only" for="time">Saat</label>
+      <select id="time" name="time">
+        <option>10:00</option>
+        <option>12:00</option>
+        <option>14:00</option>
+        <option>16:00</option>
+        <option>18:00</option>
+      </select>
+      <label class="sr-only" for="note">Qeyd</label>
+      <textarea id="note" name="note" placeholder="Qeyd"></textarea>
+      <button id="bookBtn" type="submit">Randevu götür</button>
+      <p id="msg"></p>
+    </form>
+  </div>
+</div>
+<a class="whatsapp" href="https://wa.me/994506150354" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+<footer>
+  <p>© 2026 Psixoloq Aytac Ələkbərova | Bütün hüquqlar qorunur.</p>
+</footer>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDXF5PwXbEYLJRTFgXZ1OKzd7SjynowUic",
+  authDomain: "psychologist-site-9ee26.firebaseapp.com",
+  projectId: "psychologist-site-9ee26",
+  storageBucket: "psychologist-site-9ee26.firebasestorage.app",
+  messagingSenderId: "1053484685629",
+  appId: "1:1053484685629:web:a06e7bf3344e4061b24d54"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+function scrollToBooking(){
+  document.getElementById("booking").scrollIntoView({behavior:"smooth", block:"start"});
+}
+async function book(event){
+  event.preventDefault();
+  let name = document.getElementById("name").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let date = document.getElementById("date").value;
+  let time = document.getElementById("time").value;
+  let note = document.getElementById("note").value.trim();
+  let msg = document.getElementById("msg");
+  let btn = document.getElementById("bookBtn");
+  if(!name || !phone || !date){
+    msg.innerText = "Zəhmət olmasa bütün sahələri doldurun";
+    msg.style.color = "red";
+    return;
+  }
+  if(phone.replace(/[^0-9]/g,"").length < 9){
+    msg.innerText = "Telefon nömrəsi düzgün deyil";
+    msg.style.color = "red";
+    return;
+  }
+  btn.innerText = "Göndərilir...";
+  btn.disabled = true;
+  try{
+    await db.collection("appointments").add({
+      name,
+      phone,
+      date,
+      time,
+      note,
+      createdAt: new Date().toISOString()
+    });
+    msg.innerText = "Randevu uğurla göndərildi ✅";
+    msg.style.color = "green";
+    document.getElementById("bookingForm").reset();
+  } catch(error){
+    msg.innerText = "Xəta baş verdi ❌";
+    msg.style.color = "red";
+    console.error(error);
+  }
+  btn.innerText = "Randevu götür";
+  btn.disabled = false;
+}
+</script>
+</body>
+</html>
